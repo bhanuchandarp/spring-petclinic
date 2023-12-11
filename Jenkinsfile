@@ -48,4 +48,19 @@ pipeline {
             }
         }
     }
+        post {
+        failure {
+            script {
+                // Send email on build failure
+                emailext body: 'Build failed!', recipientProviders: [[$class: 'DevelopersRecipientProvider']], subject: 'Build Failed', to: 'palakaluri.bhanuchandar@orbcomm.com'
+            }
+        }
+
+        unstable {
+            script {
+                // Send email on unstable build
+                emailext body: 'Build unstable!', recipientProviders: [[$class: 'DevelopersRecipientProvider']], subject: 'Build Unstable', to: 'palakaluri.bhanuchandar@orbcomm.com'
+            }
+        }
+    }
 }
